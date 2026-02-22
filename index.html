@@ -4,36 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Air Seychelles Roblox | Flying the Creole Spirit</title>
-    <link rel="icon" type="image/jpeg" href="HM LOGO.jpg">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/ffq8pGh/HM-LOGO.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <img src="Air Seychelles Logo (NB).png" alt="Air Seychelles Logo">
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#travel-info">Travel info <span class="arrow">▼</span></a></li>
-                    <li><a href="about.html">About us <span class="arrow">▼</span></a></li>
-                    <li><a href="#explore">Explore Seychelles <span class="arrow">▼</span></a></li>
-                    <li><a href="#help">Help</a></li>
-                    <li><a href="hm-app/login.html" class="hm-app-btn">HM APP Login</a></li>
-                </ul>
-            </nav>
+    <div id="disclaimer-modal" class="modal-overlay">
+        <div class="modal-content">
+            <img src="https://i.ibb.co/zTBgWYPV/Air-Seychelles-Logo-NB.png" alt="Logo" style="height: 40px; margin-bottom: 15px;">
+            <h2>Disclaimer</h2>
+            <p>To all visitors and guests: This website is owned by Air Seychelles Roblox. This is a roleplay group operating within the Roblox platform and is <strong>NOT</strong> the real world Air Seychelles.</p>
+            <p style="font-size: 12px; color: #666; margin-bottom: 20px;">&copy; 2026 Air Seychelles Roblox. All rights reserved.</p>
+            <button id="accept-disclaimer" class="btn btn-primary">I Understand & Enter</button>
+            <br><br>
+            <a href="https://www.airseychelles.com/en" class="btn btn-secondary" target="_blank">Looking for the real Air Seychelles? Click here.</a>
         </div>
-        <div class="header-banner" style="background-image: url('Air Seychelles Banner.png');"></div>
-    </header>
+    </div>
 
-    <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1570533355417-1fdd10db8d3c?q=80&w=2000&auto=format&fit=crop');">
+    <div id="navbar-placeholder"></div>
+
+    <section class="hero" style="background-image: url('https://ptfsrp.com/assets/herobanner.webp');">
         <div class="hero-content container">
             <h1>Visit Seychelles</h1>
-            <p>Find the best flights to the islands with Air Seychelles</p>
-            <a href="#learn-more" class="btn btn-primary">Learn More</a>
+            <p>Find the best flights to the islands with Air Seychelles Roblox</p>
         </div>
     </section>
 
@@ -41,14 +38,9 @@
         <div class="widget-tabs">
             <button class="tab active" onclick="switchTab('flights')">Flights</button>
             <button class="tab" onclick="switchTab('manage')">Manage Booking</button>
-            <button class="tab" onclick="switchTab('checkin')">Check-In</button>
         </div>
         <div class="widget-content">
             <form id="flights-form" class="widget-form active-form">
-                <div class="form-group">
-                    <label>Trip Type</label>
-                    <select><option>Round Trip</option><option>One Way</option></select>
-                </div>
                 <div class="form-group">
                     <label>From</label>
                     <input type="text" value="Mahe Island, Seychelles, SEZ" readonly>
@@ -57,73 +49,21 @@
                     <label>Destination</label>
                     <input type="text" placeholder="Select destination">
                 </div>
-                <div class="form-group">
-                    <label>Depart</label>
-                    <input type="date">
-                </div>
-                <div class="form-group">
-                    <label>Passengers</label>
-                    <select><option>1 adult</option><option>2 adults</option></select>
-                </div>
                 <button type="button" class="btn btn-search">Search Flights</button>
             </form>
             
             <form id="manage-form" class="widget-form">
                 <div class="form-group">
                     <label>Booking Reference (PNR)</label>
-                    <input type="text" placeholder="e.g. A1B2C3">
+                    <input type="text" id="pnr-input" placeholder="e.g. A1B2C3" required>
                 </div>
-                <button type="button" class="btn btn-search">Find Booking</button>
+                <button type="button" id="search-booking-btn" class="btn btn-search">Find Booking</button>
             </form>
+            <div id="booking-results" style="margin-top: 20px; display: none;"></div>
         </div>
     </section>
 
-    <section class="promo-section container">
-        <div class="promo-image">
-            <img src="https://via.placeholder.com/600x400?text=Flight+Attendants+Image" alt="Air Seychelles Crew">
-        </div>
-        <div class="promo-text">
-            <h2>Discover the latest special offers from Air Seychelles.</h2>
-            <p>Find great deals on flights, upgrades, and travel extras—designed to make your journey more rewarding. Don't miss out—book now and experience more for less.</p>
-            <a href="#offers" class="btn btn-primary">Explore Our Special Offers ↗</a>
-        </div>
-    </section>
-
-    <footer class="main-footer">
-        <div class="container footer-grid">
-            <div class="footer-column">
-                <ul>
-                    <li><a href="#status">Check Flight Status</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#route">Route Map</a></li>
-                    <li><a href="#help">Help</a></li>
-                    <li><a href="#terms">Terms & Conditions</a></li>
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Popular Destinations</h4>
-                <ul>
-                    <li><a href="#mahe">Mahé</a></li>
-                    <li><a href="#praslin">Praslin</a></li>
-                    <li><a href="#abudhabi">Abu Dhabi</a></li>
-                    <li><a href="#telaviv">Tel Aviv</a></li>
-                    <li><a href="#mauritius">Mauritius</a></li>
-                    <li><a href="#johannesburg">Johannesburg</a></li>
-                </ul>
-            </div>
-            <div class="footer-column newsletter-col">
-                <h4>Sign up for our newsletter</h4>
-                <div class="newsletter-input">
-                    <input type="email" placeholder="Add your e-mail address">
-                    <button>→</button>
-                </div>
-                <div class="social-icons">
-                    <span>[FB]</span> <span>[IG]</span> <span>[X]</span> <span>[YT]</span>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="navbar-placeholder"></div> <div id="footer-placeholder"></div>
 
     <script src="script.js"></script>
 </body>
