@@ -17,23 +17,31 @@ async function loadComponents() {
 }
 loadComponents();
 
-// --- 3. DISCLAIMER MODAL LOGIC ---
+// --- 3. MODERN DISCLAIMER MODAL LOGIC ---
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('disclaimer-modal');
-    const acceptBtn = document.getElementById('accept-disclaimer');
-
-    // Check if they already accepted it recently using LocalStorage
+    
+    // Check if they already accepted it recently
     if (!localStorage.getItem('airSeychellesDisclaimerAccepted')) {
         modal.style.display = 'flex';
     } else {
         modal.style.display = 'none';
     }
-
-    acceptBtn.addEventListener('click', () => {
-        localStorage.setItem('airSeychellesDisclaimerAccepted', 'true');
-        modal.style.display = 'none';
-    });
 });
+
+// This function is called directly by the HTML button
+function closeDisclaimer() {
+    const modal = document.getElementById('disclaimer-modal');
+    
+    // 1. Trigger the CSS fade out transition
+    modal.style.opacity = '0'; 
+    
+    // 2. Wait for the fade to finish (400ms), then remove it and save to storage
+    setTimeout(() => {
+        modal.style.display = 'none';
+        localStorage.setItem('airSeychellesDisclaimerAccepted', 'true');
+    }, 400); 
+}
 
 // --- 4. WIDGET TABS ---
 function switchTab(tabName) {
