@@ -1,27 +1,111 @@
-// Function to switch tabs on the booking widget
-function switchTab(tabName) {
-    // 1. Remove active class from all tabs and forms
-    const tabs = document.querySelectorAll('.tab');
-    const forms = document.querySelectorAll('.widget-form');
-    
-    tabs.forEach(tab => tab.classList.remove('active'));
-    forms.forEach(form => form.classList.remove('active-form'));
+// --- 1. SUPABASE CONNECTION ---
+// Replace these with your actual Supabase URL and Anon Key!
+const supabaseUrl = 'https://vrfvkfmvusirmolznrvg.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyZnZrZm12dXNpcm1vbHpucnZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3ODU3MzcsImV4cCI6MjA4NzM2MTczN30.U6HXhL2VpemL_NNofvx2-q5nqG7ddw_Dp0pgn5AeFAc';
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // 2. Add active class to the clicked tab based on text content
+// --- 2. COMPONENT INJECTION ---
+async function loadComponents() {
+    const navResponse = await fetch('components/navbar.html');
+    document.getElementById('navbar-placeholder').innerHTML = await navResponse.text();
+
+    const footResponse = await fetch('components/footer.html');
+    document.getElementById('footer-placeholder').innerHTML = await footResponse.text();
+    
+    // Attach newsletter listener AFTER footer is loaded
+    attachNewsletterListener();
+}
+loadComponents();
+
+// --- 3. DISCLAIMER MODAL LOGIC ---
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('disclaimer-modal');
+    const acceptBtn = document.getElementById('accept-disclaimer');
+
+    // Check if they already accepted it recently using LocalStorage
+    if (!localStorage.getItem('airSeychellesDisclaimerAccepted')) {
+        modal.style.display = 'flex';
+    } else {
+        modal.style.display = 'none';
+    }
+
+    acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('airSeychellesDisclaimerAccepted', 'true');
+        modal.style.display = 'none';
+    });
+});
+
+// --- 4. WIDGET TABS ---
+function switchTab(tabName) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.widget-form').forEach(f => f.classList.remove('active-form'));
+    document.getElementById('booking-results').style.display = 'none';
+
     if(tabName === 'flights') {
-        tabs[0].classList.add('active');
+        document.querySelectorAll('.tab')[0].classList.add('active');
         document.getElementById('flights-form').classList.add('active-form');
     } else if (tabName === 'manage') {
-        tabs[1].classList.add('active');
+        document.querySelectorAll('.tab')[1].classList.add('active');
         document.getElementById('manage-form').classList.add('active-form');
-    } else if (tabName === 'checkin') {
-        tabs[2].classList.add('active');
-        // We will build the Check-In form in the next step, using Manage for now
-        document.getElementById('manage-form').classList.add('active-form'); 
     }
 }
 
-// Supabase Initialization Skeleton (Ready for Phase 2)
-// const supabaseUrl = 'YOUR_SUPABASE_URL';
-// const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
-// const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+// --- 5. SUPABASE: MANAGE BOOKING SEARCH ---
+document.getElementById('search-booking-btn').addEventListener('click', async () => {
+    const pnr = document.getElementById('pnr-input').value.toUpperCase();
+    const resultsDiv = document.getElementById('booking-results');
+    
+    if(!pnr) {
+        resultsDiv.innerHTML = '<p style="color:red;">Please enter a PNR.</p>';
+        resultsDiv.style.display = 'block';
+        return;
+    }
+
+    resultsDiv.innerHTML = '<p>Searching...</p>';
+    resultsDiv.style.display = 'block';
+
+    // Query the bookings table
+    const { data, error } = await supabase
+        .from('bookings')
+        .select(`*, flights (flight_number, departure_airport, arrival_airport, status)`)
+        .eq('pnr', pnr)
+        .single();
+
+    if (error || !data) {
+        resultsDiv.innerHTML = `<p style="color:red;">No booking found for PNR: ${pnr}</p>`;
+    } else {
+        resultsDiv.innerHTML = `
+            <div style="background:#f8f9fa; padding:15px; border-radius:5px; border-left: 4px solid #005b9f;">
+                <h4>Booking Confirmed: ${data.roblox_username}</h4>
+                <p><strong>Flight:</strong> ${data.flights.flight_number} (${data.flights.departure_airport} ➔ ${data.flights.arrival_airport})</p>
+                <p><strong>Status:</strong> ${data.status} | <strong>Class:</strong> ${data.travel_class}</p>
+                <button class="btn btn-primary" style="margin-top:10px; padding:8px 15px;">Proceed to Online Check-In</button>
+            </div>
+        `;
+    }
+});
+
+// --- 6. SUPABASE: NEWSLETTER SIGNUP ---
+function attachNewsletterListener() {
+    const form = document.getElementById('newsletter-form');
+    if(form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const msgDiv = document.getElementById('newsletter-msg');
+            
+            msgDiv.innerHTML = "Subscribing...";
+            
+            const { error } = await supabase
+                .from('newsletter_subscribers')
+                .insert([{ email: email }]);
+                
+            if (error) {
+                msgDiv.innerHTML = `<span style="color:red;">Error or already subscribed.</span>`;
+            } else {
+                msgDiv.innerHTML = `<span style="color:white; font-weight:bold;">Subscribed successfully!</span>`;
+                form.reset();
+            }
+        });
+    }
+}
