@@ -95,7 +95,8 @@ nav ul li a:hover::after {
 
 /* --- Hero Section --- */
 .hero {
-    background-image: linear-gradient(rgba(11, 29, 58, 0.4), rgba(11, 29, 58, 0.7)), url('https://i.ibb.co/RTt68YXT/image.png');
+    /* Using your new A330 background image */
+    background-image: linear-gradient(rgba(11, 29, 58, 0.4), rgba(11, 29, 58, 0.7)), url('https://i.ibb.co/S7xXpWKM/f1a4cf37-e6b1-4164-babe-8bd5f6f138eb-air-seychelles-roblox-b1.png');
     background-size: cover;
     background-position: center;
     height: 70vh;
@@ -104,26 +105,15 @@ nav ul li a:hover::after {
     justify-content: center;
     align-items: center;
     position: relative;
-    padding-bottom: 100px; /* Space for widget */
+    padding-bottom: 100px;
 }
 
-.hero-text {
-    color: white;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.hero-text h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-.hero-text p {
-    font-size: 1.2rem;
-    font-weight: 300;
-}
+/* Add these quick utility classes for the multi-step form */
+.booking-step { display: none; }
+.booking-step.active { display: block; animation: fadeIn 0.4s ease; }
+.btn-secondary { background: #718096; color: white; padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer; margin-right: 10px; }
+.btn-secondary:hover { background: #4A5568; }
+.payment-box { border: 1px solid var(--border-color); padding: 20px; border-radius: 10px; background: #F8FAFC; margin-bottom: 20px;}
 
 /* --- Booking Widget --- */
 .booking-widget {
