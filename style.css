@@ -1,35 +1,186 @@
-/* Custom Brand Colors based on your screenshots */
+/* ==========================================
+   style.css - Global Styles for Air Seychelles
+   ========================================== */
 :root {
-    --brand-blue: #00AEEF;
-    --brand-dark-blue: #0056b3;
-    --brand-yellow: #FFD100;
+    --primary-blue: #00A3E0; /* Light blue from footer */
+    --dark-blue: #003D7C; /* Dark blue from header */
+    --accent-yellow: #FFC72C;
+    --text-dark: #333333;
+    --text-light: #FFFFFF;
+    --bg-light: #F4F6F8;
+    --widget-bg: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
 }
 
-.bg-seychelles { background-color: var(--brand-blue); }
-.text-seychelles { color: var(--brand-blue); }
-.btn-primary { background-color: var(--brand-blue); color: white; transition: background 0.3s; }
-.btn-primary:hover { background-color: var(--brand-dark-blue); }
+/* Header & Announcement Bar */
+header {
+    background-color: var(--dark-blue);
+    color: var(--text-light);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-/* Animated Changing Picture Banner */
-.hero-banner {
-    height: 500px;
+header img.logo {
+    height: 40px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.announcement-bar {
+    background-color: #FFF3CD;
+    color: #856404;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.announcement-badge {
+    background-color: var(--accent-yellow);
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Hero Section & Booking Widget */
+.hero {
+    background-image: url('https://i.ibb.co/RTt68YXT/image.png'); /* Placeholder A320 image */
     background-size: cover;
     background-position: center;
-    animation: changeBanner 15s infinite;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
-@keyframes changeBanner {
-    0%, 30% { background-image: url('https://i.ibb.co/TxWNKZxd/Air-Seychelles-Roblox-B1.png'); } /* A330 */
-    33%, 63% { background-image: url('https://i.ibb.co/RTt68YXT/image.png'); } /* A320 NEO */
-    66%, 100% { background-image: url('https://i.ibb.co/gLHsbjJd/image-1.png'); } /* Twin Otter */
+.hero-text {
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-/* Hide utility for tabs */
-.hidden-tab { display: none; }
+.booking-widget {
+    background: var(--widget-bg);
+    border-radius: 12px;
+    width: 80%;
+    max-width: 1000px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    position: absolute;
+    bottom: -50px; /* Overlaps the hero image */
+}
+
+.widget-tabs {
+    display: flex;
+    background-color: #E9ECEF;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+    background-color: var(--widget-bg);
+    color: var(--dark-blue);
+    border-bottom: 3px solid var(--primary-blue);
+}
+
+.widget-content {
+    padding: 30px;
+    display: none;
+}
+
+.widget-content.active {
+    display: block;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #0088BC;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    padding: 40px 50px;
+    margin-top: 100px; /* Space for the widget overlap */
+    display: flex;
+    justify-content: space-between;
+}
+
+footer a {
+    color: var(--text-light);
+    text-decoration: none;
+}
