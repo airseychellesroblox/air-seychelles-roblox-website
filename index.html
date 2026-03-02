@@ -6,6 +6,7 @@
     <title>Air Seychelles Roblox | Book Flights</title>
     <link rel="icon" type="image/png" href="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -40,133 +41,273 @@
             </div>
 
             <div id="book" class="widget-content active">
-                <form id="bookingForm">
+                
+                <div id="step-1" class="booking-step active">
+                    <h3 style="margin-bottom: 20px;">Step 1: Choose Your Flight</h3>
                     <div class="form-row">
-                        <div class="form-group">
-                            <label>Origin</label>
-                            <select required>
-                                <option value="" disabled selected>Select Departure...</option>
-                                <option value="SEZ">Mahe Island, Seychelles (SEZ)</option>
-                                <option value="PRI">Praslin (PRI)</option>
-                            </select>
+                        <div class="form-group" style="flex: 2;">
+                            <label>Select Scheduled Flight</label>
+                            <select id="flightSelect" required onchange="handleFlightSelection()">
+                                <option value="" disabled selected>Loading flights from database...</option>
+                                </select>
                         </div>
-                        <div class="form-group">
-                            <label>Destination</label>
-                            <select required>
-                                <option value="" disabled selected>Select Destination...</option>
-                                <option value="PRI">Praslin (PRI)</option>
-                                <option value="AUH">Abu Dhabi (AUH)</option>
-                                <option value="JNB">Johannesburg (JNB)</option>
-                                <option value="MRU">Mauritius (MRU)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
                         <div class="form-group">
                             <label>Travel Class</label>
                             <select id="seatClass" required>
-                                <option value="Economy">Economy</option>
-                                <option value="Business">Business Class (A320/A330 Only)</option>
+                                <option value="" disabled selected>Select Flight First...</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="notice-box">
+                        <strong>Important:</strong> Bookings are to be done ONLY by yourself. You cannot book for someone else.
+                    </div>
+                    <button type="button" class="btn-primary" onclick="nextStep(2)">Continue to Passenger Details</button>
+                </div>
+
+                <div id="step-2" class="booking-step">
+                    <h3 style="margin-bottom: 20px;">Step 2: Passenger Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name (Roleplay Name OK)</label>
+                            <input type="text" id="fullName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="gender" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label>Roblox Username</label>
-                            <input type="text" placeholder="Your Roblox User" required>
+                            <input type="text" id="robloxUser" placeholder="RobloxPlayer123" required>
                         </div>
                         <div class="form-group">
                             <label>Discord Username</label>
-                            <input type="text" placeholder="Your Discord User" required>
+                            <input type="text" id="discordUser" placeholder="discorduser#0000" required>
                         </div>
                     </div>
-
                     <div class="notice-box">
-                        <strong>Business Class Notice:</strong> Final approval of your Business Class ticket is verified at check-in. You MUST have the Business Class role in our Discord. 
+                        <strong>Business Class Notice:</strong> Final approval of your BC ticket is verified at check-in. You MUST have the Business Class role in our Discord before check-in begins.
                     </div>
+                    <div style="display: flex;">
+                        <button type="button" class="btn-secondary" onclick="nextStep(1)">Back</button>
+                        <button type="button" class="btn-primary" onclick="nextStep(3)">Continue to Payment</button>
+                    </div>
+                </div>
 
-                    <button type="button" class="btn-primary">Proceed to Payment</button>
-                </form>
+                <div id="step-3" class="booking-step">
+                    <h3 style="margin-bottom: 20px;">Step 3: Secure Checkout</h3>
+                    <div class="payment-box">
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label>Card Number (Simulation)</label>
+                                <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
+                            </div>
+                            <div class="form-group">
+                                <label>Expiry</label>
+                                <input type="text" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label>CVC</label>
+                                <input type="text" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #718096; text-align: center;">This is a roleplay airline. No real money is charged.</p>
+                    </div>
+                    <div style="display: flex;">
+                        <button type="button" class="btn-secondary" onclick="nextStep(2)">Back</button>
+                        <button type="button" id="payBtn" class="btn-primary" onclick="submitBooking()">Pay & Book Flight</button>
+                    </div>
+                </div>
+
+                <div id="step-4" class="booking-step">
+                    <div style="text-align: center; padding: 30px;">
+                        <h2 style="color: var(--brand-green); margin-bottom: 10px;">Booking Confirmed!</h2>
+                        <p>Your payment was successful and your seat is reserved.</p>
+                        <div style="background: #F8FAFC; border: 2px dashed var(--dark-navy); padding: 20px; border-radius: 10px; margin: 20px auto; max-width: 300px;">
+                            <p style="font-size: 0.9rem; font-weight: bold; color: var(--text-muted);">YOUR PNR CODE</p>
+                            <h1 id="displayPnr" style="letter-spacing: 5px; color: var(--brand-red);">------</h1>
+                        </div>
+                        <p style="color: var(--brand-red); font-weight: bold;">KEEP THIS SAFE! You will need it to manage your booking.</p>
+                        <button type="button" class="btn-primary" style="margin-top: 20px;" onclick="location.reload()">Book Another Flight</button>
+                    </div>
+                </div>
             </div>
 
             <div id="manage" class="widget-content">
                 <div style="text-align: center; margin-bottom: 20px;">
                     <h2>View Your Itinerary</h2>
-                    <p style="color: var(--text-muted); margin-top: 10px;">Enter your 6-character PNR below to view your real-time flight status.</p>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Enter your 6-character PNR below.</p>
                 </div>
                 <form id="manageForm" style="max-width: 500px; margin: 0 auto;">
                     <div class="form-group" style="margin-bottom: 20px;">
-                        <input type="text" placeholder="ENTER PNR (E.G. A1B2C3)" maxlength="6" style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 1.2rem;" required>
+                        <input type="text" id="searchPnrInput" placeholder="ENTER PNR (E.G. A1B2C3)" maxlength="6" style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 1.2rem;" required>
                     </div>
-                    <button type="button" class="btn-primary">Search Booking</button>
+                    <button type="button" class="btn-primary" onclick="searchBooking()">Search Booking</button>
                 </form>
+
+                <div id="manageResults" style="display: none; margin-top: 30px; padding: 20px; border: 1px solid var(--border-color); border-radius: 10px; background: #F8FAFC;">
+                    <h3 style="margin-bottom: 15px; border-bottom: 2px solid var(--brand-green); padding-bottom: 5px;">Flight Itinerary</h3>
+                    <p><strong>Passenger:</strong> <span id="resName"></span></p>
+                    <p><strong>Class:</strong> <span id="resClass"></span></p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px solid #E2E8F0;">
+                    <p><strong>Flight:</strong> <span id="resFlightNum"></span></p>
+                    <p><strong>Route:</strong> <span id="resRoute"></span></p>
+                    <p><strong>Status:</strong> <span id="resStatus" style="font-weight: bold; color: var(--brand-red);"></span></p>
+                </div>
             </div>
 
             <div id="checkin" class="widget-content">
                 <div style="text-align: center; padding: 30px; background-color: #FFF5F5; border-radius: 12px; border: 1px solid #FED7D7;">
                     <h3 style="color: #C53030; margin-bottom: 15px;">Check-In Information</h3>
                     <p style="color: #742A2A; font-weight: 500;">We do not support online check-in at this time.</p>
-                    <p style="color: #742A2A; margin-top: 10px;">Please ensure you arrive at the airport <strong>30 minutes before departure</strong> and visit one of our Guest Service Agents for manual check-in.</p>
+                    <p style="color: #742A2A; margin-top: 10px;">Please ensure you arrive at the airport <strong>30 minutes before departure</strong> and visit one of our Guest Service Agents for check-in.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="quick-cards">
-        <a href="/operations/" class="card">
-            <h3>Live FIDS</h3>
-            <p>Check real-time flight schedules</p>
-        </a>
-        <a href="/travel-info/" class="card">
-            <h3>VIP Flights</h3>
-            <p>Book exclusive FBO services</p>
-        </a>
-        <a href="/careers/" class="card">
-            <h3>Careers</h3>
-            <p>Join our crew today</p>
-        </a>
-        <a href="/help/" class="card">
-            <h3>Help Center</h3>
-            <p>Contact support & file reports</p>
-        </a>
-    </section>
-
-    <footer>
-        <div>
-            <img src="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" alt="Air Seychelles Logo" style="height: 40px; margin-bottom: 15px; filter: grayscale(100%) brightness(200%);">
-            <p>Flying the Creole Spirit across the Ro-aviation skies.</p>
-        </div>
-        <div>
-            <h4>Important Links</h4>
-            <ul>
-                <li><a href="https://docs.google.com/document/d/1y_KeuX9gyJQmOhT69zQc_wVeatMs9fP5WmngsyJMc2M/edit?usp=sharing" target="_blank">Terms & Conditions</a></li>
-                <li><a href="https://docs.google.com/document/d/1LFNsSQNqSJxr74xgayDMMBZZFcMzhlM7uHk_4fUm0fI/edit?usp=sharing" target="_blank">Organization Hierarchy</a></li>
-                <li><a href="/travel-info/">Invest & Support</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Connect With Us</h4>
-            <ul>
-                <li><a href="https://discord.gg/" target="_blank">Join our Discord</a></li>
-                <li><a href="https://ko-fi.com/airseychellesroblox" target="_blank">Support us on Ko-fi</a></li>
-                <li><a href="https://www.youtube.com/@AirSeychellesRoblox" target="_blank">YouTube</a></li>
-                <li><a href="https://x.com/hmseychellesrbx" target="_blank">X (Twitter)</a></li>
-                <li><a href="https://www.tiktok.com/@airseychellesroblox" target="_blank">TikTok</a></li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Air Seychelles Roblox. Owned by Tyler Nicholas Group.</p>
-            <p style="margin-top: 5px; opacity: 0.6;">Website built by BlueWave Digital.</p>
-        </div>
-    </footer>
-
     <script>
+        // --- 1. SUPABASE INITIALIZATION ---
+        const supabaseUrl = 'https://nmzccyjvlvuukugikbfd.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5temNjeWp2bHZ1dWt1Z2lrYmZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzODMxNzMsImV4cCI6MjA4Nzk1OTE3M30.Ix9qxfozxXtSrkR3uTt29pE0ZtfqFFrBGc9gxxusnHU';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        let availableFlights = [];
+
         // Tab switching logic
         function switchTab(tabId) {
             document.querySelectorAll('.widget-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            
             document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
+        }
+
+        // Booking multi-step logic
+        function nextStep(step) {
+            // Basic validation before moving from step 1
+            if (step === 2 && !document.getElementById('flightSelect').value) return alert("Please select a flight first.");
+            // Basic validation before moving from step 2
+            if (step === 3 && (!document.getElementById('fullName').value || !document.getElementById('robloxUser').value)) return alert("Please fill in all passenger details.");
+
+            document.querySelectorAll('.booking-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+        }
+
+        // Load Flights on Page Load
+        async function fetchFlights() {
+            const { data, error } = await supabase.from('flights').select('*').eq('status', 'Scheduled');
+            
+            const selectEl = document.getElementById('flightSelect');
+            if (error) {
+                console.error(error);
+                selectEl.innerHTML = '<option disabled>Error loading flights</option>';
+                return;
+            }
+
+            availableFlights = data;
+            selectEl.innerHTML = '<option value="" disabled selected>Select a Flight...</option>';
+            
+            data.forEach(flight => {
+                // Format the time nicely
+                let time = new Date(flight.departure_time).toLocaleString();
+                selectEl.innerHTML += `<option value="${flight.id}">HM${flight.flight_number} | ${flight.departure_airport} to ${flight.arrival_airport} | ${flight.aircraft_type}</option>`;
+            });
+        }
+        
+        // Trigger fetch on load
+        fetchFlights();
+
+        // Handle Flight Selection (Twin Otter Logic)
+        function handleFlightSelection() {
+            const flightId = document.getElementById('flightSelect').value;
+            const flight = availableFlights.find(f => f.id === flightId);
+            const classSelect = document.getElementById('seatClass');
+            
+            classSelect.innerHTML = ''; // Clear options
+
+            if (flight.aircraft_type === 'Twin Otter') {
+                classSelect.innerHTML = '<option value="Economy">Economy (Twin Otter Only)</option>';
+            } else {
+                classSelect.innerHTML = `
+                    <option value="Economy">Economy</option>
+                    <option value="Business">Business Class</option>
+                `;
+            }
+        }
+
+        // Submit Booking & Get PNR
+        async function submitBooking() {
+            const payBtn = document.getElementById('payBtn');
+            payBtn.innerText = "Processing...";
+            payBtn.disabled = true;
+
+            const bookingData = {
+                flight_id: document.getElementById('flightSelect').value,
+                seat_class: document.getElementById('seatClass').value,
+                discord_username: document.getElementById('discordUser').value,
+                roblox_username: document.getElementById('robloxUser').value,
+                full_name: document.getElementById('fullName').value,
+                gender: document.getElementById('gender').value,
+                dob: document.getElementById('dob').value
+            };
+
+            // Simulate fake payment delay (2 seconds)
+            setTimeout(async () => {
+                // Insert into Supabase (The trigger we made earlier generates the PNR)
+                const { data, error } = await supabase.from('bookings').insert([bookingData]).select();
+
+                if (error) {
+                    alert("Error processing booking: " + error.message);
+                    payBtn.innerText = "Pay & Book Flight";
+                    payBtn.disabled = false;
+                    return;
+                }
+
+                // Success! Get the auto-generated PNR from the returned data
+                const generatedPnr = data[0].pnr;
+                document.getElementById('displayPnr').innerText = generatedPnr;
+                nextStep(4); // Move to confirmation screen
+
+            }, 2000);
+        }
+
+        // Search Manage Booking
+        async function searchBooking() {
+            const pnr = document.getElementById('searchPnrInput').value.toUpperCase();
+            if(pnr.length !== 6) return alert("PNR must be 6 characters.");
+
+            // Query the bookings table and JOIN with the flights table
+            const { data, error } = await supabase
+                .from('bookings')
+                .select(`
+                    *,
+                    flights ( flight_number, departure_airport, arrival_airport, status )
+                `)
+                .eq('pnr', pnr)
+                .single();
+
+            if (error || !data) {
+                alert("Booking not found. Please check your PNR.");
+                return;
+            }
+
+            // Display results
+            document.getElementById('resName').innerText = `${data.full_name} (${data.roblox_username})`;
+            document.getElementById('resClass').innerText = data.seat_class;
+            document.getElementById('resFlightNum').innerText = `HM${data.flights.flight_number}`;
+            document.getElementById('resRoute').innerText = `${data.flights.departure_airport} to ${data.flights.arrival_airport}`;
+            document.getElementById('resStatus').innerText = data.flights.status;
+
+            document.getElementById('manageResults').style.display = 'block';
         }
     </script>
 </body>
