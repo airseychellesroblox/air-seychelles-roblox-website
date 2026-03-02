@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Seychelles Roblox | Home</title>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/zTBgWYPV/Air-Seychelles-Logo-NB.png">
+    <title>Air Seychelles Roblox | Book Flights</title>
+    <link rel="icon" type="image/png" href="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="announcement-bar" id="announcementBar">
-        <span class="announcement-badge">INTERNATIONAL</span>
-        <span>Welcome to the new Air Seychelles Roblox! Check our Discord for the latest flight schedules.</span>
+    <div class="announcement-bar">
+        ⚠️ Note: All flights listed are scheduled in Roblox (UTC). Ensure you check our Discord for live updates.
     </div>
 
     <header>
-        <a href="/"><img src="https://i.ibb.co/zTBgWYPV/Air-Seychelles-Logo-NB.png" alt="Air Seychelles Logo" class="logo"></a>
+        <a href="/"><img src="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" alt="Air Seychelles Logo" class="logo"></a>
         <nav>
             <ul>
                 <li><a href="/travel-info/">Travel Info</a></li>
@@ -30,12 +29,12 @@
     <section class="hero">
         <div class="hero-text">
             <h1>Visit Seychelles</h1>
-            <p>Find the best flights to the islands with Air Seychelles Roblox</p>
+            <p>Flying the Creole Spirit across the Ro-aviation skies.</p>
         </div>
 
         <div class="booking-widget">
             <div class="widget-tabs">
-                <div class="tab active" onclick="switchTab('book')">Flights</div>
+                <div class="tab active" onclick="switchTab('book')">Book A Flight</div>
                 <div class="tab" onclick="switchTab('manage')">Manage Booking</div>
                 <div class="tab" onclick="switchTab('checkin')">Check-In</div>
             </div>
@@ -44,8 +43,9 @@
                 <form id="bookingForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>From</label>
+                            <label>Origin</label>
                             <select required>
+                                <option value="" disabled selected>Select Departure...</option>
                                 <option value="SEZ">Mahe Island, Seychelles (SEZ)</option>
                                 <option value="PRI">Praslin (PRI)</option>
                             </select>
@@ -53,6 +53,7 @@
                         <div class="form-group">
                             <label>Destination</label>
                             <select required>
+                                <option value="" disabled selected>Select Destination...</option>
                                 <option value="PRI">Praslin (PRI)</option>
                                 <option value="AUH">Abu Dhabi (AUH)</option>
                                 <option value="JNB">Johannesburg (JNB)</option>
@@ -60,76 +61,110 @@
                             </select>
                         </div>
                     </div>
+                    
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Class (Check Discord Role for Business)</label>
+                            <label>Travel Class</label>
                             <select id="seatClass" required>
                                 <option value="Economy">Economy</option>
-                                <option value="Business">Business Class</option>
+                                <option value="Business">Business Class (A320/A330 Only)</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Roblox Username</label>
-                            <input type="text" placeholder="Enter Username" required>
+                            <input type="text" placeholder="Your Roblox User" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Discord Username</label>
+                            <input type="text" placeholder="Your Discord User" required>
                         </div>
                     </div>
-                    <button type="button" class="btn-primary" onclick="alert('Payment Gateway & Supabase Integration Coming Next!')">Search Flights & Book</button>
+
+                    <div class="notice-box">
+                        <strong>Business Class Notice:</strong> Final approval of your Business Class ticket is verified at check-in. You MUST have the Business Class role in our Discord. 
+                    </div>
+
+                    <button type="button" class="btn-primary">Proceed to Payment</button>
                 </form>
             </div>
 
             <div id="manage" class="widget-content">
-                <form id="manageForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Enter your 6-Character PNR</label>
-                            <input type="text" placeholder="e.g., A1B2C3" maxlength="6" required>
-                        </div>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2>View Your Itinerary</h2>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Enter your 6-character PNR below to view your real-time flight status.</p>
+                </div>
+                <form id="manageForm" style="max-width: 500px; margin: 0 auto;">
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <input type="text" placeholder="ENTER PNR (E.G. A1B2C3)" maxlength="6" style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 1.2rem;" required>
                     </div>
-                    <button type="button" class="btn-primary">Find Booking</button>
+                    <button type="button" class="btn-primary">Search Booking</button>
                 </form>
             </div>
 
             <div id="checkin" class="widget-content">
-                <div style="text-align: center; padding: 20px;">
-                    <h3>Online Check-in is not supported.</h3>
-                    <p>Please be sure to arrive at the airport 30 minutes before departure and visit one of our Guest Service Agents for check-in.</p>
+                <div style="text-align: center; padding: 30px; background-color: #FFF5F5; border-radius: 12px; border: 1px solid #FED7D7;">
+                    <h3 style="color: #C53030; margin-bottom: 15px;">Check-In Information</h3>
+                    <p style="color: #742A2A; font-weight: 500;">We do not support online check-in at this time.</p>
+                    <p style="color: #742A2A; margin-top: 10px;">Please ensure you arrive at the airport <strong>30 minutes before departure</strong> and visit one of our Guest Service Agents for manual check-in.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <section class="quick-cards">
+        <a href="/operations/" class="card">
+            <h3>Live FIDS</h3>
+            <p>Check real-time flight schedules</p>
+        </a>
+        <a href="/travel-info/" class="card">
+            <h3>VIP Flights</h3>
+            <p>Book exclusive FBO services</p>
+        </a>
+        <a href="/careers/" class="card">
+            <h3>Careers</h3>
+            <p>Join our crew today</p>
+        </a>
+        <a href="/help/" class="card">
+            <h3>Help Center</h3>
+            <p>Contact support & file reports</p>
+        </a>
+    </section>
+
     <footer>
         <div>
-            <h4>Popular Destinations</h4>
+            <img src="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" alt="Air Seychelles Logo" style="height: 40px; margin-bottom: 15px; filter: grayscale(100%) brightness(200%);">
+            <p>Flying the Creole Spirit across the Ro-aviation skies.</p>
+        </div>
+        <div>
+            <h4>Important Links</h4>
             <ul>
-                <li>Mahé</li>
-                <li>Praslin</li>
-                <li>Abu Dhabi</li>
+                <li><a href="https://docs.google.com/document/d/1y_KeuX9gyJQmOhT69zQc_wVeatMs9fP5WmngsyJMc2M/edit?usp=sharing" target="_blank">Terms & Conditions</a></li>
+                <li><a href="https://docs.google.com/document/d/1LFNsSQNqSJxr74xgayDMMBZZFcMzhlM7uHk_4fUm0fI/edit?usp=sharing" target="_blank">Organization Hierarchy</a></li>
+                <li><a href="/travel-info/">Invest & Support</a></li>
             </ul>
         </div>
         <div>
-            <h4>Support</h4>
-            <a href="https://ko-fi.com/airseychellesroblox" target="_blank">Support us on Ko-fi!</a><br>
-            <a href="https://docs.google.com/document/d/1y_KeuX9gyJQmOhT69zQc_wVeatMs9fP5WmngsyJMc2M/" target="_blank">Terms & Conditions</a>
+            <h4>Connect With Us</h4>
+            <ul>
+                <li><a href="https://discord.gg/" target="_blank">Join our Discord</a></li>
+                <li><a href="https://ko-fi.com/airseychellesroblox" target="_blank">Support us on Ko-fi</a></li>
+                <li><a href="https://www.youtube.com/@AirSeychellesRoblox" target="_blank">YouTube</a></li>
+                <li><a href="https://x.com/hmseychellesrbx" target="_blank">X (Twitter)</a></li>
+                <li><a href="https://www.tiktok.com/@airseychellesroblox" target="_blank">TikTok</a></li>
+            </ul>
         </div>
-        <div>
-            <h4>Socials</h4>
-            <a href="https://www.youtube.com/@AirSeychellesRoblox" target="_blank">YouTube</a> | 
-            <a href="https://x.com/hmseychellesrbx" target="_blank">X (Twitter)</a> |
-            <a href="https://www.tiktok.com/@airseychellesroblox" target="_blank">TikTok</a>
+        <div class="footer-bottom">
             <p>&copy; 2026 Air Seychelles Roblox. Owned by Tyler Nicholas Group.</p>
+            <p style="margin-top: 5px; opacity: 0.6;">Website built by BlueWave Digital.</p>
         </div>
     </footer>
 
     <script>
-        // Simple script to handle the widget tabs
+        // Tab switching logic
         function switchTab(tabId) {
-            // Hide all contents
             document.querySelectorAll('.widget-content').forEach(el => el.classList.remove('active'));
-            // Remove active class from all tabs
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
             
-            // Show selected content and highlight tab
             document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
         }
