@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Off the Flight Path | Air Seychelles Roblox</title>
+    
+    <link rel="icon" href="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-deep-navy: #04070a; 
+            --hm-red: #D22730;
+            --hm-green: #007A33;
+            --hm-red-glow: rgba(210, 39, 48, 0.4);
+            --text-white: #ffffff;
+            --text-muted: #8b9bb4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-deep-navy);
+            color: var(--text-white);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 5%;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 122, 51, 0.08) 0%, transparent 65%);
+        }
+
+        .error-icon {
+            font-size: 5rem;
+            color: var(--hm-green);
+            margin-bottom: 1rem;
+            animation: float 3s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(0, 122, 51, 0.4));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1.error-code {
+            font-size: 7rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            color: var(--hm-red);
+            text-shadow: 0 0 30px var(--hm-red-glow);
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        p.subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--hm-red), #ff3b46);
+            color: var(--text-white);
+            padding: 0.8rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(210, 39, 48, 0.5);
+            box-shadow: 0 5px 20px rgba(210, 39, 48, 0.2);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px var(--hm-red-glow);
+            background: linear-gradient(45deg, #ff3b46, var(--hm-red));
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            background-color: #020305;
+            padding: 2.5rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--hm-green); /* Switched to green for 404 footer accent */
+            animation: fadeInUp 1s ease-out 0.8s both;
+            box-shadow: 0 -10px 30px rgba(0, 122, 51, 0.05);
+        }
+
+        .corporate-structure {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .corporate-structure span {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .corporate-structure a {
+            color: var(--hm-red);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .corporate-structure a:hover {
+            color: var(--text-white);
+            text-shadow: 0 0 10px var(--hm-red-glow);
+        }
+
+        .disclaimer-text {
+            color: rgba(139, 155, 180, 0.6);
+            font-size: 0.8rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1.error-code { font-size: 5rem; }
+            h2 { font-size: 1.6rem; }
+            .corporate-structure span { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="main-container">
+        <div class="error-icon">
+            <i class="fa-solid fa-compass"></i>
+        </div>
+        <h1 class="error-code">404</h1>
+        <h2>Off the Flight Path.</h2>
+        <p class="subtitle">The digital sector you are trying to reach does not exist in our route map. It may have been relocated or the coordinates are incorrect.</p>
+        
+        <a href="/" class="btn-primary">Return to Base</a>
+    </main>
+
+    <footer class="site-footer">
+        <div class="corporate-structure">
+            <span>Owned & Operated by <a href="https://tylernicholasgroup.com" target="_blank">Tyler Nicholas Group</a></span>
+        </div>
+        <div class="disclaimer-text">
+            &copy; 2026 Air Seychelles Roblox. All rights reserved. For official community updates, announcements, and access to related operations, please visit the Tyler Nicholas Group portal.
+        </div>
+    </footer>
+
+</body>
+</html>
