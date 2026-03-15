@@ -3,304 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Seychelles Roblox | Book Flights</title>
-    <link rel="icon" type="image/png" href="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Coming Soon | Air Seychelles Roblox</title>
+    
+    <link rel="icon" href="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-deep-navy: #04070a; 
+            --hm-red: #D22730;
+            --hm-green: #007A33;
+            --hm-red-glow: rgba(210, 39, 48, 0.4);
+            --text-white: #ffffff;
+            --text-muted: #8b9bb4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-deep-navy);
+            color: var(--text-white);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 5%;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(210, 39, 48, 0.05) 0%, transparent 65%);
+        }
+
+        .logo-container {
+            margin-bottom: 3.5rem;
+            animation: pulseLogo 4s infinite ease-in-out;
+            background: #ffffff;
+            border-radius: 50%;
+            padding: 15px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 120px;
+            width: 120px;
+            object-fit: contain;
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(210, 39, 48, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px var(--hm-red-glow); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(210, 39, 48, 0.2); }
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 122, 51, 0.1); /* Green tint */
+            color: #1cfc7c;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(0, 122, 51, 0.4);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+            letter-spacing: -1px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            background-color: #020305;
+            padding: 2.5rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--hm-red);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            box-shadow: 0 -10px 30px rgba(210, 39, 48, 0.05);
+        }
+
+        .corporate-structure {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .corporate-structure span {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .corporate-structure a {
+            color: var(--hm-red);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .corporate-structure a:hover {
+            color: var(--text-white);
+            text-shadow: 0 0 10px var(--hm-red-glow);
+        }
+
+        .disclaimer-text {
+            color: rgba(139, 155, 180, 0.6);
+            font-size: 0.8rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .logo-container img { height: 90px; width: 90px; }
+            .corporate-structure span { font-size: 0.85rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="announcement-bar">
-        <span class="announcement-badge">INTERNATIONAL</span>
-        In the Middle East region, Air Seychelles regrets to inform passengers that the following services have been cancelled...
-    </div>
-
-    <header>
-        <a href="/"><img src="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" alt="Air Seychelles Logo" class="logo"></a>
-        <nav>
-            <ul>
-                <li><a href="/travel-info/">Travel Info</a></li>
-                <li><a href="/about/">About Us</a></li>
-                <li><a href="/operations/">Operations</a></li>
-                <li><a href="/careers/">Careers</a></li>
-                <li><a href="/help/">Help Center</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Visit Seychelles</h1>
-            <p>Find the best flights to the islands with Air Seychelles</p>
+    <main class="main-container">
+        <div class="logo-container">
+            <img src="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" alt="Air Seychelles Roblox Logo">
         </div>
 
-        <div class="booking-widget">
-            <div class="widget-tabs">
-                <div class="tab active" onclick="switchTab('book')">Flights</div>
-                <div class="tab" onclick="switchTab('manage')">Manage Booking</div>
-                <div class="tab" onclick="switchTab('checkin')">Check-In</div>
-            </div>
-
-            <div id="book" class="widget-content active">
-                
-                <div id="step-1" class="booking-step active">
-                    <div class="form-row">
-                        <div class="form-group" style="flex: 2;">
-                            <label>Select Scheduled Flight</label>
-                            <select id="flightSelect" required onchange="handleFlightSelection()">
-                                <option value="" disabled selected>Loading flights from database...</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Travel Class</label>
-                            <select id="seatClass" required>
-                                <option value="" disabled selected>Select Flight First...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="notice-box">
-                        Bookings are to be done ONLY by yourself. You cannot book for someone else.
-                    </div>
-                    <button type="button" class="btn-primary" onclick="nextStep(2)">Continue to Passenger Details</button>
-                </div>
-
-                <div id="step-2" class="booking-step">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="fullName" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Date of Birth</label>
-                            <input type="date" id="dob" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <select id="gender" required>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Roblox Username</label>
-                            <input type="text" id="robloxUser" placeholder="Username" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Discord Username</label>
-                            <input type="text" id="discordUser" placeholder="Username#0000" required>
-                        </div>
-                    </div>
-                    <div class="notice-box">
-                        <strong>Business Class Notice:</strong> Final approval of your BC ticket is verified at check-in. You MUST have the Business Class role in our Discord.
-                    </div>
-                    <div style="display: flex;">
-                        <button type="button" class="btn-secondary" onclick="nextStep(1)">Back</button>
-                        <button type="button" class="btn-primary" onclick="nextStep(3)">Continue to Payment</button>
-                    </div>
-                </div>
-
-                <div id="step-3" class="booking-step">
-                    <div class="payment-box">
-                        <div class="form-row">
-                            <div class="form-group" style="flex: 2;">
-                                <label>Card Number (Simulation)</label>
-                                <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
-                            </div>
-                            <div class="form-group">
-                                <label>Expiry</label>
-                                <input type="text" placeholder="MM/YY" maxlength="5">
-                            </div>
-                            <div class="form-group">
-                                <label>CVC</label>
-                                <input type="text" placeholder="123" maxlength="3">
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex;">
-                        <button type="button" class="btn-secondary" onclick="nextStep(2)">Back</button>
-                        <button type="button" id="payBtn" class="btn-primary" onclick="submitBooking()">Pay & Book Flight</button>
-                    </div>
-                </div>
-
-                <div id="step-4" class="booking-step">
-                    <div style="text-align: center; padding: 20px;">
-                        <h2 style="color: #008542; margin-bottom: 10px;">Booking Confirmed!</h2>
-                        <div style="background: #F4F6F8; border: 2px dashed #003D7C; padding: 20px; border-radius: 10px; margin: 20px auto; max-width: 300px;">
-                            <p style="font-size: 0.9rem; font-weight: bold;">YOUR PNR CODE</p>
-                            <h1 id="displayPnr" style="letter-spacing: 5px; color: #D32736;">------</h1>
-                        </div>
-                        <p style="color: #D32736; font-weight: bold;">KEEP THIS SAFE!</p>
-                        <button type="button" class="btn-primary" style="margin-top: 20px;" onclick="location.reload()">Book Another Flight</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="manage" class="widget-content">
-                <form id="manageForm" style="max-width: 500px; margin: 0 auto; text-align: center;">
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label>Enter your 6-Character PNR</label>
-                        <input type="text" id="searchPnrInput" placeholder="A1B2C3" maxlength="6" style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 1.2rem;" required>
-                    </div>
-                    <button type="button" class="btn-primary" onclick="searchBooking()">Search Booking</button>
-                </form>
-
-                <div id="manageResults" style="display: none; margin-top: 30px; padding: 20px; border: 1px solid var(--border-color); border-radius: 8px; background: #F8FAFC;">
-                    <h3 style="margin-bottom: 15px;">Flight Itinerary</h3>
-                    <p><strong>Passenger:</strong> <span id="resName"></span></p>
-                    <p><strong>Class:</strong> <span id="resClass"></span></p>
-                    <hr style="margin: 15px 0;">
-                    <p><strong>Flight:</strong> <span id="resFlightNum"></span></p>
-                    <p><strong>Route:</strong> <span id="resRoute"></span></p>
-                    <p><strong>Status:</strong> <span id="resStatus" style="font-weight: bold;"></span></p>
-                </div>
-            </div>
-
-            <div id="checkin" class="widget-content">
-                <div style="text-align: center; padding: 20px;">
-                    <h3>Online Check-in is not supported.</h3>
-                    <p style="margin-top: 10px;">Please be sure to arrive at the airport 30 minutes before departure and visit one of our Guest Service Agents for check-in.</p>
-                </div>
-            </div>
+        <div class="status-badge">
+            <i class="fa-solid fa-plane-departure"></i> Coming Soon
         </div>
-    </section>
 
-    <footer>
-        <div>
-            <img src="https://cdn.airpaz.com/rel-0275/airlines/201x201/HM.png" alt="Logo" style="height: 50px; margin-bottom: 15px; filter: brightness(0) invert(1);">
-            <p style="font-size: 0.9rem;">Flying the Creole Spirit across the Ro-aviation skies.</p>
+        <h1>The Spirit of Seychelles.</h1>
+        <p class="subtitle">We are building the premier virtual aviation experience for the islands. Our digital infrastructure is currently under construction and will be airborne soon.</p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="corporate-structure">
+            <span>Owned & Operated by <a href="https://tylernicholasgroup.com" target="_blank">Tyler Nicholas Group</a></span>
         </div>
-        <div>
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="/about/">About Us</a></li>
-                <li><a href="https://docs.google.com/document/d/1y_KeuX9gyJQmOhT69zQc_wVeatMs9fP5WmngsyJMc2M/" target="_blank">Terms & Conditions</a></li>
-                <li><a href="https://docs.google.com/document/d/1LFNsSQNqSJxr74xgayDMMBZZFcMzhlM7uHk_4fUm0fI/" target="_blank">Organization Hierarchy</a></li>
-                <li><a href="/travel-info/">Invest & Support</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4>Connect With Us</h4>
-            <ul>
-                <li><a href="/help/">Contact & Support Forms</a></li>
-                <li><a href="https://ko-fi.com/airseychellesroblox" target="_blank">Ko-fi</a></li>
-                <li><a href="https://www.youtube.com/@AirSeychellesRoblox" target="_blank">YouTube</a></li>
-                <li><a href="https://x.com/hmseychellesrbx" target="_blank">X (Twitter)</a></li>
-                <li><a href="https://www.tiktok.com/@airseychellesroblox" target="_blank">TikTok</a></li>
-            </ul>
-        </div>
-        <div class="footer-divider">
-            <span>Website made by BlueWave Digital.</span>
-            <span>&copy; 2026 Air Seychelles Roblox. Owned by Tyler Nicholas Group.</span>
+        <div class="disclaimer-text">
+            &copy; 2026 Air Seychelles Roblox. All rights reserved. For official community updates, announcements, and access to related operations, please visit the Tyler Nicholas Group portal.
         </div>
     </footer>
 
-    <script>
-        const supabaseUrl = 'https://nmzccyjvlvuukugikbfd.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5temNjeWp2bHZ1dWt1Z2lrYmZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIzODMxNzMsImV4cCI6MjA4Nzk1OTE3M30.Ix9qxfozxXtSrkR3uTt29pE0ZtfqFFrBGc9gxxusnHU';
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-        let availableFlights = [];
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.widget-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function nextStep(step) {
-            if (step === 2 && !document.getElementById('flightSelect').value) return alert("Please select a flight first.");
-            if (step === 3 && (!document.getElementById('fullName').value || !document.getElementById('robloxUser').value)) return alert("Please fill in all passenger details.");
-
-            document.querySelectorAll('.booking-step').forEach(el => el.classList.remove('active'));
-            document.getElementById(`step-${step}`).classList.add('active');
-        }
-
-        async function fetchFlights() {
-            const { data, error } = await supabase.from('flights').select('*').eq('status', 'Scheduled');
-            const selectEl = document.getElementById('flightSelect');
-            if (error) {
-                console.error(error);
-                selectEl.innerHTML = '<option disabled>Error loading flights</option>';
-                return;
-            }
-            availableFlights = data;
-            selectEl.innerHTML = '<option value="" disabled selected>Select a Flight...</option>';
-            data.forEach(flight => {
-                selectEl.innerHTML += `<option value="${flight.id}">HM${flight.flight_number} | ${flight.departure_airport} to ${flight.arrival_airport} | ${flight.aircraft_type}</option>`;
-            });
-        }
-        
-        fetchFlights();
-
-        function handleFlightSelection() {
-            const flightId = document.getElementById('flightSelect').value;
-            const flight = availableFlights.find(f => f.id === flightId);
-            const classSelect = document.getElementById('seatClass');
-            
-            classSelect.innerHTML = '';
-            if (flight.aircraft_type === 'Twin Otter') {
-                classSelect.innerHTML = '<option value="Economy">Economy (Twin Otter Only)</option>';
-            } else {
-                classSelect.innerHTML = `<option value="Economy">Economy</option><option value="Business">Business Class</option>`;
-            }
-        }
-
-        async function submitBooking() {
-            const payBtn = document.getElementById('payBtn');
-            payBtn.innerText = "Processing...";
-            payBtn.disabled = true;
-
-            const bookingData = {
-                flight_id: document.getElementById('flightSelect').value,
-                seat_class: document.getElementById('seatClass').value,
-                discord_username: document.getElementById('discordUser').value,
-                roblox_username: document.getElementById('robloxUser').value,
-                full_name: document.getElementById('fullName').value,
-                gender: document.getElementById('gender').value,
-                dob: document.getElementById('dob').value
-            };
-
-            setTimeout(async () => {
-                const { data, error } = await supabase.from('bookings').insert([bookingData]).select();
-                if (error) {
-                    alert("Error processing booking: " + error.message);
-                    payBtn.innerText = "Pay & Book Flight";
-                    payBtn.disabled = false;
-                    return;
-                }
-                const generatedPnr = data[0].pnr;
-                document.getElementById('displayPnr').innerText = generatedPnr;
-                nextStep(4);
-            }, 2000);
-        }
-
-        async function searchBooking() {
-            const pnr = document.getElementById('searchPnrInput').value.toUpperCase();
-            if(pnr.length !== 6) return alert("PNR must be 6 characters.");
-
-            const { data, error } = await supabase
-                .from('bookings')
-                .select(`*, flights ( flight_number, departure_airport, arrival_airport, status )`)
-                .eq('pnr', pnr)
-                .single();
-
-            if (error || !data) {
-                alert("Booking not found. Please check your PNR.");
-                return;
-            }
-
-            document.getElementById('resName').innerText = `${data.full_name} (${data.roblox_username})`;
-            document.getElementById('resClass').innerText = data.seat_class;
-            document.getElementById('resFlightNum').innerText = `HM${data.flights.flight_number}`;
-            document.getElementById('resRoute').innerText = `${data.flights.departure_airport} to ${data.flights.arrival_airport}`;
-            document.getElementById('resStatus').innerText = data.flights.status;
-
-            document.getElementById('manageResults').style.display = 'block';
-        }
-    </script>
 </body>
 </html>
